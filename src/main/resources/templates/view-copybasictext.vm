@@ -1,0 +1,41 @@
+<style type="text/css">
+#copy_div_${issue_id} {
+    text-align:center;
+    border:1px solid black;
+    background-color:#ccc;
+    width: 15px;
+    height: 15px;
+    margin:1px; padding:1px;
+}
+#copy_div_${issue_id}.hover {
+    background-color:#eee;
+}
+#copy_div_${issue_id}.active {
+    background-color:#aaa;
+}
+</style>
+
+<script type="text/javascript" src="$requestContext.baseUrl/download/resources/ru.mail.plugins.clipcopier.copy-to-clipboard/zeroclipboard.js"></script>
+<script type="text/javascript" src="$requestContext.baseUrl/download/resources/ru.mail.plugins.clipcopier.copy-to-clipboard/main.js"></script>
+
+#if ($value)
+    #if ($excelView)
+    $textutils.br($textutils.htmlEncode($!value.toString(), false))
+    #else
+    <div id="copy_div_$issue_id" >&copy;</div>
+    <script language="javascript">
+        AJS.$().ready(function() {
+            ZeroClipboard.setMoviePath('$requestContext.baseUrl/download/resources/ru.mail.plugins.clipcopier.copy-to-clipboard/zeroclipboard.swf');
+            var clip = new ZeroClipboard.Client();
+            clip.addEventListener('onComplete', function(client, text) {
+                AJS.$("#copy_div_${issue_id}").animate({ width:"75px", height:"75px" }, 200);
+                AJS.$("#copy_div_${issue_id}").animate({ width:"15px", height:"15px" }, 200);
+            });
+            clip.setText("$value");
+            clip.setHandCursor(true);
+            clip.setCSSEffects(true);
+            clip.glue("copy_div_$issue_id");
+        });
+    </script>
+    #end
+#end
