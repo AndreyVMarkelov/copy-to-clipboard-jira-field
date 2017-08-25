@@ -1,4 +1,4 @@
-mailru-jira-plugins-copy-to-clipboard
+Copy To Clipboard Jira Custom Field Plugin
 =====================================
 
-This is custom field that allows copy issue key and description to clipboard
+Custom field for copying issue data to clipboard according a template.
