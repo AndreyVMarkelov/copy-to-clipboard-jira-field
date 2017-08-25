@@ -1,0 +1,5 @@
+#if ($value)
+<button class="copy-to-clipboard" data-clipboard-text="${value}">
+    <span class="aui-icon aui-icon-small aui-iconfont-copy-clipboard">Copy </span>
+</button>
+#end

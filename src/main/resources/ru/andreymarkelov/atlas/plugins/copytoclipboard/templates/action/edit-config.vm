@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>$i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.title")</title>
+        <meta content="admin" name="decorator"/>
+        <meta name="admin.active.section" content="admin_issues_menu/element_options_section/fields_section"/>
+        <meta name="admin.active.tab" content="view_custom_fields"/>
+    </head>
+    <body class="aui">
+        #if($action.hasAnyErrors())
+        <div class="aui-message error">
+            <p class="title">
+                <span class="aui-icon icon-error"></span>
+                <strong>$i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.error")</strong>
+            </p>
+            #foreach($error in $action.getErrorMessages())<p>${error}</p>#end
+        </div>
+        #end
+        <header class="aui-page-header">
+            <div class="aui-page-header-inner">
+                <div class="aui-page-header-main">
+                $i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.title")
+                <p class="description">
+                    $i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.title.desc")
+                </p>
+                </div>
+            </div>
+        </header>
+        <form class="aui" action="CopyToClipboardCfEditConfiguration.jspa" method="post">
+            <input type="hidden" name="atl_token" value="${atl_token}"/>
+            <input type="hidden" name="fieldConfigId" value="${fieldConfigId}"/>
+            <div class="field-group">
+                <label for="copyPattern">$i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.pattern")</label>
+                <textarea class="textarea" name="copyPattern" id="copyPattern" cols="120" rows="10">$!{copyPattern}</textarea>
+                #if($action.getErrors().containsKey("copyPattern"))
+                <div class="error">$action.getErrors().get("copyPattern")</div>
+                #end
+                <div class="description">$i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.pattern.desc")</div>
+            </div>
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input type="submit" class="aui-button" accesskey="s" id="set_defaults_submit" value='$i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.save")'>
+                    <a accesskey="`" class="aui-button aui-button-link" id="cancelButton" href="ConfigureCustomField!default.jspa?customFieldId=${action.getCustomField().getIdAsLong().toString()}">
+                        $i18n.getText("ru.andreymarkelov.atlas.plugins.copy-to-clipboard.config.cancel")
+                    </a>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

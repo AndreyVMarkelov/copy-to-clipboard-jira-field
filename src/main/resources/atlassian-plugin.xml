@@ -3,21 +3,48 @@
         <description>${project.description}</description>
         <version>${project.version}</version>
         <vendor name="${project.organization.name}" url="${project.organization.url}"/>
-        <param name="plugin-logo">/images/photo.png</param>
-        <param name="plugin-icon">/images/photo.png</param>
-        <param name="vendor-icon">/images/icon.png</param>
-        <param name="vendor-logo">/images/logo.png</param>
+        <param name="plugin-logo">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/copypaste-logo.png</param>
+        <param name="plugin-icon">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/copypaste-icon.png</param>
+        <param name="plugin-banner">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/vc3.png</param>
+        <param name="vendor-icon">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/144.jpg</param>
+        <param name="vendor-logo">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/32.jpg</param>
+        <param name="atlassian-data-center-compatible">true</param>
     </plugin-info>
 
-    <customfield-type key="copytoclip" name="Copy To Clipboard"
-                      class="ru.mail.plugins.clipcopier.CopyToClipboardCFType">
-        <description>Link to copy task data to clipboard</description>
+    <!-- I18N -->
+    <resource type="i18n" name="color-i18n" location="ru.andreymarkelov.atlas.plugins.copytoclipboard.i18n.copytoclipboard"/>
 
-        <resource type="velocity" name="view" location="templates/view-copybasictext.vm"/>
-        <resource type="velocity" name="column-view" location="templates/view-copylimited-text.vm"/>
+    <!-- Web Resources -->
+    <web-resource key="copy-to-clipboard-resources" name="Copy To Clipboard Resources">
+        <resource type="download" name="copytoclipboard.js" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/js/copytoclipboard.js"/>
+        <resource type="download" name="clipboard.js" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/js/clipboard.js"/>
+        <context>copytoclipboard-resources</context>
+        <context>atl.general</context>
+    </web-resource>
+
+    <!-- Custom Fields -->
+    <customfield-type key="copy-to-clipboard-field" name="Copy To Clipboard" class="ru.andreymarkelov.atlas.plugins.copytoclipboard.field.CopyToClipboardCFType">
+        <description>Link to copy issue data to clipboard according a template.</description>
+        <resource type="velocity" name="view" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/templates/field/view-copybasictext.vm"/>
+        <resource type="velocity" name="column-view" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/templates/field/view-copylimited-text.vm"/>
+        <resource type="download" name="customfieldpreview.png" location="ru/andreymarkelov/atlas/plugins/copytoclipboard/images/copy-field.png"/>
     </customfield-type>
 
-    <resource type="download" name="zeroclipboard.js" location="zeroclipboard/zeroclipboard.js"/>
-    <resource type="download" name="zeroclipboard.swf" location="zeroclipboard/zeroclipboard.swf"/>
-    <resource type="download" name="main.js" location="scripts/main.js"/>
+    <!-- Actions -->
+    <webwork1 key="copy-to-clipboard-configaction" name="Copy To Clipboard configuration action" class="java.lang.Object">
+        <description>The action for editing a Copy To Clipboard Custom Field type configuration.</description>
+        <actions>
+            <action name="ru.andreymarkelov.atlas.plugins.copytoclipboard.action.CopyToClipboardCfEditConfiguration" alias="CopyToClipboardCfEditConfiguration">
+                <view name="input">/ru/andreymarkelov/atlas/plugins/copytoclipboard/templates/action/edit-config.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!-- Component Imports -->
+    <component key="copy-to-clipboard-plugindata" class="ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.impl.PluginDataImpl" public="true">
+        <interface>ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData</interface>
+    </component>
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+    <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
 </atlassian-plugin>
