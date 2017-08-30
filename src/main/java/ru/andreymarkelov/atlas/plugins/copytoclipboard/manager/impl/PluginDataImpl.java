@@ -8,6 +8,8 @@ import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData;
 public class PluginDataImpl implements PluginData {
     private static final String PLUGIN_KEY = "CopyToClipboard";
 
+    private static final String DEFAULT_PATTERN = "$issue.key: $issue.summary";
+
     private final PluginSettings pluginSettings;
 
     public PluginDataImpl(PluginSettingsFactory pluginSettingsFactory) {
@@ -16,17 +18,28 @@ public class PluginDataImpl implements PluginData {
 
     @Override
     public String getCopyPattern(FieldConfig config) {
-        Object obj = getPluginSettings().get(getKey(config));
-        return obj != null ? obj.toString() : "";
+        Object obj = getPluginSettings().get(getKey(config, "pattern"));
+        return obj != null ? obj.toString() : DEFAULT_PATTERN;
     }
 
     @Override
     public void setCopyPattern(FieldConfig config, String copyPattern) {
-        getPluginSettings().put(getKey(config), copyPattern);
+        getPluginSettings().put(getKey(config, "pattern"), copyPattern);
     }
 
-    private String getKey(FieldConfig config) {
-        return config.getFieldId().concat("_").concat(config.getId().toString()).concat("_").concat("config");
+    @Override
+    public String getCopyButton(FieldConfig config) {
+        Object obj = getPluginSettings().get(getKey(config, "button"));
+        return obj != null ? obj.toString() : "";
+    }
+
+    @Override
+    public void setCopyButton(FieldConfig config, String copyButton) {
+        getPluginSettings().put(getKey(config, "button"), copyButton);
+    }
+
+    private String getKey(FieldConfig config, String name) {
+        return config.getFieldId().concat("_").concat(config.getId().toString()).concat("_").concat(name);
     }
 
     private synchronized PluginSettings getPluginSettings() {
