@@ -41,8 +41,8 @@
     </webwork1>
 
     <!-- Component Imports -->
-    <component key="copy-to-clipboard-plugindata" class="ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.impl.PluginDataImpl" public="true">
-        <interface>ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData</interface>
+    <component key="copy-to-clipboard-datamanager" class="ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.impl.CopyToClipboardDataManagerImpl" public="true">
+        <interface>ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager</interface>
     </component>
     <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
     <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>

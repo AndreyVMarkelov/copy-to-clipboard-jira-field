@@ -4,7 +4,7 @@ import com.atlassian.jira.config.managedconfiguration.ManagedConfigurationItemSe
 import com.atlassian.jira.security.xsrf.RequiresXsrfCheck;
 import com.atlassian.jira.web.action.admin.customfields.AbstractEditConfigurationItemAction;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData;
+import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager;
 import ru.andreymarkelov.atlas.plugins.copytoclipboard.util.DummyIssue;
 
 import java.util.Collections;
@@ -13,23 +13,23 @@ import static com.atlassian.jira.permission.GlobalPermissionKey.ADMINISTER;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class CopyToClipboardCfEditConfiguration extends AbstractEditConfigurationItemAction {
-    private final PluginData pluginData;
+    private final CopyToClipboardDataManager copyToClipboardDataManager;
     private final TemplateRenderer renderer;
 
     private String copyPattern;
 
     public CopyToClipboardCfEditConfiguration(
             ManagedConfigurationItemService managedConfigurationItemService,
-            PluginData pluginData,
+            CopyToClipboardDataManager copyToClipboardDataManager,
             TemplateRenderer renderer) {
         super(managedConfigurationItemService);
-        this.pluginData = pluginData;
+        this.copyToClipboardDataManager = copyToClipboardDataManager;
         this.renderer = renderer;
     }
 
     @Override
     public String doDefault() throws Exception {
-        String copyPattern = pluginData.getCopyPattern(getFieldConfig());
+        String copyPattern = copyToClipboardDataManager.getCopyPattern(getFieldConfig());
         if (isNotBlank(copyPattern)) {
             this.copyPattern = copyPattern;
         }
@@ -42,7 +42,7 @@ public class CopyToClipboardCfEditConfiguration extends AbstractEditConfiguratio
         if (!getGlobalPermissionManager().hasPermission(ADMINISTER, getLoggedInUser())) {
             return "securitybreach";
         }
-        pluginData.setCopyPattern(getFieldConfig(), copyPattern);
+        copyToClipboardDataManager.setCopyPattern(getFieldConfig(), copyPattern);
         return getRedirect("/secure/admin/ConfigureCustomField!default.jspa?customFieldId=" + getFieldConfig().getCustomField().getIdAsLong().toString());
     }
 

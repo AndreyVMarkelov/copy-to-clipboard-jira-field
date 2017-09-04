@@ -3,16 +3,16 @@ package ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.impl;
 import com.atlassian.jira.issue.fields.config.FieldConfig;
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
-import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData;
+import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager;
 
-public class PluginDataImpl implements PluginData {
+public class CopyToClipboardDataManagerImpl implements CopyToClipboardDataManager {
     private static final String PLUGIN_KEY = "CopyToClipboard";
 
     private static final String DEFAULT_PATTERN = "$issue.key: $issue.summary";
 
     private final PluginSettings pluginSettings;
 
-    public PluginDataImpl(PluginSettingsFactory pluginSettingsFactory) {
+    public CopyToClipboardDataManagerImpl(PluginSettingsFactory pluginSettingsFactory) {
         this.pluginSettings = pluginSettingsFactory.createSettingsForKey(PLUGIN_KEY);
     }
 

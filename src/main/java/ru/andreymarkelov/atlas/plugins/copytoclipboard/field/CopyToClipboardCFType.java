@@ -6,25 +6,30 @@ import com.atlassian.jira.issue.customfields.impl.FieldValidationException;
 import com.atlassian.jira.issue.fields.CustomField;
 import com.atlassian.jira.issue.fields.config.FieldConfigItemType;
 import com.atlassian.jira.issue.fields.layout.field.FieldLayoutItem;
-import org.apache.commons.lang.StringEscapeUtils;
-import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.PluginData;
+import com.atlassian.templaterenderer.TemplateRenderer;
+import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class CopyToClipboardCFType extends CalculatedCFType<String, String> {
-    private final PluginData pluginData;
+    private final CopyToClipboardDataManager copyToClipboardDataManager;
+    private final TemplateRenderer renderer;
 
-    public CopyToClipboardCFType(PluginData pluginData) {
-        this.pluginData = pluginData;
+    public CopyToClipboardCFType(
+            CopyToClipboardDataManager copyToClipboardDataManager,
+            TemplateRenderer renderer) {
+        this.copyToClipboardDataManager = copyToClipboardDataManager;
+        this.renderer = renderer;
     }
 
     @Override
     @Nonnull
     public List<FieldConfigItemType> getConfigurationItemTypes() {
         List<FieldConfigItemType> configurationItemTypes = super.getConfigurationItemTypes();
-        configurationItemTypes.add(new CopyToClipboardCfConfig(pluginData));
+        configurationItemTypes.add(new CopyToClipboardCfConfig(copyToClipboardDataManager));
         return configurationItemTypes;
     }
 
@@ -40,8 +45,9 @@ public class CopyToClipboardCFType extends CalculatedCFType<String, String> {
 
     @Override
     public String getValueFromIssue(CustomField customField, Issue issue) {
-        if (issue != null && issue.getKey() != null) {
-            return String.format("%s %s: %s", issue.getIssueType().getName(), issue.getKey(), StringEscapeUtils.escapeJavaScript(issue.getSummary()));
+        if (issue != null) {
+            String pattern = copyToClipboardDataManager.getCopyPattern(customField.getRelevantConfig(issue));
+            return renderer.renderFragment(pattern, Collections.<String, Object>singletonMap("issue", issue));
         } else {
             return "";
         }
@@ -49,8 +55,8 @@ public class CopyToClipboardCFType extends CalculatedCFType<String, String> {
 
     public Map<String, Object> getVelocityParameters(Issue issue, CustomField customField, FieldLayoutItem fieldLayoutItem) {
         Map<String, Object> params = super.getVelocityParameters(issue, customField, fieldLayoutItem);
-        if (issue != null && issue.getId() != null) {
-            params.put("issue_id", issue.getId());
+        if (issue != null) {
+            params.put("copytext", copyToClipboardDataManager.getCopyButton(customField.getRelevantConfig(issue)));
         }
         return params;
     }
