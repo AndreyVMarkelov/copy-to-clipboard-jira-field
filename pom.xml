@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.andreymarkelov.atlas.plugins</groupId>
     <artifactId>copy-to-clipboard</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>atlassian-plugin</packaging>
 
     <organization>
@@ -15,48 +13,6 @@
 
     <name>Copy To Clipboard</name>
     <description>Custom field for copying issue data to clipboard according a template.</description>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>maven-jira-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <compressResources>false</compressResources>
-                    <productVersion>${jira.version}</productVersion>
-                    <productDataVersion>${jira.version}</productDataVersion>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.atlassian.maven.plugins</groupId>
-                        <artifactId>maven-jira-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <plugin.resource.directories>${basedir}/target/classes</plugin.resource.directories>
-                                <atlassian.dev.mode>false</atlassian.dev.mode>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>
@@ -79,9 +35,32 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jira-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <compressResources>false</compressResources>
+                    <productVersion>${jira.version}</productVersion>
+                    <productDataVersion>${jira.version}</productDataVersion>
+                </configuration>
+                <version>${amps.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
         <jira.version>7.0.0</jira.version>
-        <amps.version>6.2.9</amps.version>
+        <amps.version>6.3.6</amps.version>
         <useFastdevCli>false</useFastdevCli>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
     </properties>
