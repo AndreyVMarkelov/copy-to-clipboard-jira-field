@@ -1,5 +1,10 @@
 package ru.andreymarkelov.atlas.plugins.copytoclipboard.field;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nonnull;
+
 import com.atlassian.jira.issue.Issue;
 import com.atlassian.jira.issue.customfields.impl.CalculatedCFType;
 import com.atlassian.jira.issue.customfields.impl.FieldValidationException;
@@ -9,11 +14,6 @@ import com.atlassian.jira.issue.fields.config.FieldConfigItemType;
 import com.atlassian.jira.issue.fields.layout.field.FieldLayoutItem;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 public class CopyToClipboardCFType extends CalculatedCFType<String, String> {
     private final CopyToClipboardDataManager copyToClipboardDataManager;
@@ -58,10 +58,14 @@ public class CopyToClipboardCFType extends CalculatedCFType<String, String> {
         return "";
     }
 
+    @Override
     public Map<String, Object> getVelocityParameters(Issue issue, CustomField customField, FieldLayoutItem fieldLayoutItem) {
         Map<String, Object> params = super.getVelocityParameters(issue, customField, fieldLayoutItem);
         if (issue != null) {
-            params.put("copytext", copyToClipboardDataManager.getCopyButton(customField.getRelevantConfig(issue)));
+            FieldConfig fieldConfig = customField.getRelevantConfig(issue);
+            if (fieldConfig != null) {
+                params.put("copytext", copyToClipboardDataManager.getCopyButton(fieldConfig));
+            }
         }
         return params;
     }
