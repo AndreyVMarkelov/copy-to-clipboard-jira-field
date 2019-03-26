@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.andreymarkelov.atlas.plugins</groupId>
     <artifactId>copy-to-clipboard</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <packaging>atlassian-plugin</packaging>
 
     <organization>
@@ -59,9 +59,11 @@
     </build>
 
     <properties>
-        <jira.version>7.0.0</jira.version>
+        <jira.version>8.0.0</jira.version>
         <amps.version>6.3.15</amps.version>
         <useFastdevCli>false</useFastdevCli>
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 </project>

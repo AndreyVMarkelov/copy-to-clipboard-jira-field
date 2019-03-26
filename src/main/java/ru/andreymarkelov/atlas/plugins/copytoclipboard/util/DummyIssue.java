@@ -330,6 +330,10 @@ public class DummyIssue implements Issue {
 
     @Override
     public void store() {
+    }
 
+    @Override
+    public boolean isArchived() {
+        return false;
     }
 }
