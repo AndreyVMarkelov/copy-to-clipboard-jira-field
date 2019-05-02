@@ -336,4 +336,19 @@ public class DummyIssue implements Issue {
     public boolean isArchived() {
         return false;
     }
+
+    @Override
+    public ApplicationUser getArchivedByUser() {
+        return null;
+    }
+
+    @Override
+    public String getArchivedById() {
+        return null;
+    }
+
+    @Override
+    public Timestamp getArchivedDate() {
+        return null;
+    }
 }
