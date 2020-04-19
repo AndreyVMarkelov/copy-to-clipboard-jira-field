@@ -12,6 +12,8 @@ import com.atlassian.jira.issue.fields.config.FieldConfig;
 import com.atlassian.jira.issue.fields.config.FieldConfigItemType;
 import com.atlassian.jira.issue.fields.layout.field.FieldLayoutItem;
 import com.atlassian.jira.util.ErrorCollection;
+import com.atlassian.sal.api.ApplicationProperties;
+import com.atlassian.sal.api.UrlMode;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import ru.andreymarkelov.atlas.plugins.copytoclipboard.manager.CopyToClipboardDataManager;
 
@@ -25,17 +27,20 @@ public class CopyToClipboardCFType extends GenericTextCFType {
     private final CopyToClipboardDataManager copyToClipboardDataManager;
     private final TemplateRenderer renderer;
     private final CustomFieldManager customFieldManager;
+    private final ApplicationProperties applicationProperties;
 
     public CopyToClipboardCFType(
             CustomFieldValuePersister customFieldValuePersister,
             GenericConfigManager genericConfigManager,
             CopyToClipboardDataManager copyToClipboardDataManager,
             TemplateRenderer renderer,
-            CustomFieldManager customFieldManager) {
+            CustomFieldManager customFieldManager,
+            ApplicationProperties applicationProperties) {
         super(customFieldValuePersister, genericConfigManager);
         this.copyToClipboardDataManager = copyToClipboardDataManager;
         this.renderer = renderer;
         this.customFieldManager = customFieldManager;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -76,6 +81,7 @@ public class CopyToClipboardCFType extends GenericTextCFType {
                 Map<String, Object> renderParameters = new HashMap<>();
                 renderParameters.put("issue", issue);
                 renderParameters.put("customFieldManager", customFieldManager);
+                renderParameters.put("baseUrl", applicationProperties.getBaseUrl(UrlMode.ABSOLUTE));
                 String pattern = copyToClipboardDataManager.getCopyPattern(fieldConfig);
                 return unescapeHtml4(renderer.renderFragment(pattern, renderParameters));
             }
