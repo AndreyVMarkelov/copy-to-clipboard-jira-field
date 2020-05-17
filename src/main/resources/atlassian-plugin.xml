@@ -16,6 +16,7 @@
 
     <!-- Web Resources -->
     <web-resource key="copy-to-clipboard-resources" name="Copy To Clipboard Resources">
+        <dependency>com.atlassian.auiplugin:aui-experimental-tooltips</dependency>
         <resource type="download" name="copytoclipboard.js" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/js/copytoclipboard.js"/>
         <resource type="download" name="clipboard.js" location="/ru/andreymarkelov/atlas/plugins/copytoclipboard/js/clipboard.js"/>
         <context>copytoclipboard-resources</context>

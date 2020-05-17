@@ -2,7 +2,7 @@
     #if ($excelView)
     $textutils.br($textutils.htmlEncode(${value}, false))
     #else
-    <button class="aui-button copy-to-clipboard" data-clipboard-text="$!{value}">
+    <button class="aui-button copy-to-clipboard" data-clipboard-text="$!{value}" title="Copied!">
         <span class="aui-icon aui-icon-small aui-iconfont-copy">Copy </span>$!{copytext}
     </button>
     #end
