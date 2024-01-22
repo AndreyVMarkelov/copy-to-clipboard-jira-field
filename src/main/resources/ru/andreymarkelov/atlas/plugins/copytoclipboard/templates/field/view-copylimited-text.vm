@@ -1,3 +1,5 @@
+#disable_html_escaping()
+$webResourceManager.requireResource("ru.andreymarkelov.atlas.plugins.copy-to-clipboard:copy-to-clipboard-resources")
 #if ($value)
 <button class="aui-button copy-to-clipboard" data-clipboard-text="${value}" title="Copied!">
     <span class="aui-icon aui-icon-small aui-iconfont-copy">Copy </span>

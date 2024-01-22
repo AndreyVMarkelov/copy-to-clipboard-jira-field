@@ -1,6 +1,8 @@
 package ru.andreymarkelov.atlas.plugins.copytoclipboard.action;
 
 import com.atlassian.jira.config.managedconfiguration.ManagedConfigurationItemService;
+import com.atlassian.jira.security.request.RequestMethod;
+import com.atlassian.jira.security.request.SupportedMethods;
 import com.atlassian.jira.security.xsrf.RequiresXsrfCheck;
 import com.atlassian.jira.web.action.admin.customfields.AbstractEditConfigurationItemAction;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -28,6 +30,7 @@ public class CopyToClipboardCfEditConfiguration extends AbstractEditConfiguratio
     }
 
     @Override
+    @SupportedMethods({RequestMethod.GET})
     public String doDefault() throws Exception {
         String copyPattern = copyToClipboardDataManager.getCopyPattern(getFieldConfig());
         if (isNotBlank(copyPattern)) {
@@ -37,6 +40,7 @@ public class CopyToClipboardCfEditConfiguration extends AbstractEditConfiguratio
     }
 
     @Override
+    @SupportedMethods({RequestMethod.POST})
     @RequiresXsrfCheck
     protected String doExecute() throws Exception {
         if (!getGlobalPermissionManager().hasPermission(ADMINISTER, getLoggedInUser())) {

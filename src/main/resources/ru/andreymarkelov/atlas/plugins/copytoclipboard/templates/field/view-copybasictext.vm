@@ -1,3 +1,5 @@
+#disable_html_escaping()
+$webResourceManager.requireResource("ru.andreymarkelov.atlas.plugins.copy-to-clipboard:copy-to-clipboard-resources")
 #if ($value)
     #if ($excelView)
     $textutils.br($textutils.htmlEncode(${value}, false))

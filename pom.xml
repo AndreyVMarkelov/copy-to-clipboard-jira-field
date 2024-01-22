@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.andreymarkelov.atlas.plugins</groupId>
     <artifactId>copy-to-clipboard</artifactId>
-    <version>1.0.19</version>
+    <version>1.0.20</version>
     <packaging>atlassian-plugin</packaging>
 
     <organization>
@@ -19,12 +19,6 @@
             <groupId>com.atlassian.jira</groupId>
             <artifactId>jira-core</artifactId>
             <version>${jira.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -52,21 +46,19 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.12.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <properties>
-        <java.version>1.8</java.version>
-        <jira.version>8.1.0</jira.version>
-        <slf4j-api.version>1.7.30</slf4j-api.version>
+        <jira.version>9.4.15</jira.version>
         <atl-tmpl-api.version>1.1.1</atl-tmpl-api.version>
-        <amps.version>8.0.4</amps.version>
+        <amps.version>8.11.4</amps.version>
         <compressResources>false</compressResources>
         <allowGoogleTracking>false</allowGoogleTracking>
         <enableQuickReload>false</enableQuickReload>
