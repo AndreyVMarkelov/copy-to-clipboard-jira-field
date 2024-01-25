@@ -8,6 +8,7 @@
         <param name="plugin-banner">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/vc3.png</param>
         <param name="vendor-icon">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/144.jpg</param>
         <param name="vendor-logo">/ru/andreymarkelov/atlas/plugins/copytoclipboard/images/32.jpg</param>
+        <param name="atlassian-data-center-status">compatible</param>
         <param name="atlassian-data-center-compatible">true</param>
     </plugin-info>
 
