@@ -33,7 +33,7 @@
     </customfield-type>
 
     <!-- Actions -->
-    <webwork1 key="copy-to-clipboard-configaction" name="Copy To Clipboard configuration action" class="java.lang.Object">
+    <webwork1 key="copy-to-clipboard-configaction" name="Copy To Clipboard configuration action" class="java.lang.Object" roles-required="admin">
         <description>The action for editing a Copy To Clipboard Custom Field type configuration.</description>
         <actions>
             <action name="ru.andreymarkelov.atlas.plugins.copytoclipboard.action.CopyToClipboardCfEditConfiguration" alias="CopyToClipboardCfEditConfiguration">
